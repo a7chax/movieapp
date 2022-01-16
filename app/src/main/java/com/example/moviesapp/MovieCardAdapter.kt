@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.Picasso
 
 
 class MovieCardAdapter(private val dataSet: Array<MovieItem>) :
@@ -45,6 +47,12 @@ class MovieCardAdapter(private val dataSet: Array<MovieItem>) :
     // Get element from your dataset at this position and replace the
     // contents of the view with that element
     viewHolder.title.text = dataSet[position].title
+    Picasso.get()
+      .load("https://image.tmdb.org/t/p/w500/${dataSet[position].image}")
+      .placeholder(R.drawable.maskgroup)
+      .networkPolicy(NetworkPolicy.OFFLINE)
+        .into(viewHolder.image)
+
   }
 
   // Return the size of your dataset (invoked by the layout manager)

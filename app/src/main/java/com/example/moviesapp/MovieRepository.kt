@@ -6,14 +6,15 @@ import com.example.moviesapp.retrofit.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class MovieRepository constructor(private val service : MovieServiceExample?) : IMovieRepository {
+class MovieRepository @Inject constructor(private val service : MovieServiceExample) : IMovieRepository {
     override fun getMovies(onResponse : (list : List<MovieItem>) -> Unit, onFailure : (message : String) -> Unit){
-        val retrofit = RetrofitClient().getRetrofitInstance()
-        val serviceMovie = retrofit?.create(MovieServiceExample::class.java)
-        val call = serviceMovie?.getMovies()
+//        val retrofit = RetrofitClient().getRetrofitInstance()
+//        val serviceMovie = retrofit?.create(MovieServiceExample::class.java)
+        val call = service.getMovies()
 
-        call?.enqueue(object : Callback<GetMoviesResponse>{
+        call.enqueue(object : Callback<GetMoviesResponse>{
             override fun onResponse(
                 call: Call<GetMoviesResponse>,
                 response: Response<GetMoviesResponse>
